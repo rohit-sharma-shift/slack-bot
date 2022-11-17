@@ -32,7 +32,7 @@ def connect_db():
     cursor.execute(os.getenv("ENGG_MEET_REMINDER_QUERY"))
     row = cursor.fetchone()
     while row:
-        if datetime.today()<=datetime.strptime(row[0], '%Y-%m-%d') and (datetime.strptime(row[0], '%Y-%m-%d')-datetime.today()).days<=7:
+        if datetime.today().isocalendar().week==datetime.strptime(row[0], '%Y-%m-%d').isocalendar().week:
             send_message(row[2], row[0])
         row = cursor.fetchone()
 
